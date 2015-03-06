@@ -1,0 +1,2 @@
+grep '^ *-\|\#options:' ./d.bash > options-doco
+cat options-doco

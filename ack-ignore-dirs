@@ -1,0 +1,3 @@
+##NOTE: you can show just filenames only using the switch -l
+##   e.g.     ack -l foo
+export ACK_IGNORE_DIRS=' --ignore-dir=.idea  --ignore-dir=dist --ignore-dir=app/bower_components --ignore-dir=.idea'

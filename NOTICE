@@ -1,0 +1,20 @@
+NOTICE
+============================
+
+Some files and ideas came from public sources.
+
+git-branch-status ::
+
+ hosted at   https://gist.github.com/Mark-Booth/5058384
+ forked from https://gist.github.com/lth2h/4177524 @ ae184f1 by mark.booth
+ forked from https://gist.github.com/jehiah/1288596 @ e357c1e by lth2h
+ ideas from https://github.com/kortina/bakpak/blob/master/bin/git-branches-vs-origin-master
+ 
+Not much code, but some ideas came from this:
+
+   https://github.com/necolas/dotfiles
+   
+Similarly, some ideas from here: 
+
+  https://github.com/jondavidjohn/dotfiles/blob/aad34fe2b41d12d7796f7c0deb8ecf8296015e6e/general/.bash_profile#L101-L121
+

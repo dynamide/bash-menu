@@ -1,0 +1,43 @@
+HISTCONTROL="erasedups"
+
+theUname=`uname -s`
+regex=".*(Darwin).*"
+[[ $theUname =~ $regex ]]
+name="${BASH_REMATCH[1]}"
+if [ "$name" != "" ]; then
+    alias ls='CLICOLOR_FORCE=1 /bin/ls -GF'
+    alias lat='CLICOLOR_FORCE=1 /bin/ls -latG|less -R'
+    alias dir='CLICOLOR_FORCE=1 /bin/ls -loaTGF'
+    alias dirt='{ echo "======Newest Files First==========" && CLICOLOR_FORCE=1  /bin/ls -loaTtGF; } | less -R ';
+else
+   alias lat='CLICOLOR_FORCE=1 /bin/ls -latG --color|less -R'
+   alias dir='CLICOLOR_FORCE=1 /bin/ls -loa --color'
+   alias dirt='{ echo "======Newest Files First==========" && CLICOLOR_FORCE=1  /bin/ls -loa --color; } | less -R ';
+fi
+
+alias ci='git commit'
+alias co='git checkout'
+alias st='git status'
+alias h='history|grep '
+alias o='open'
+alias catall='$DYNAMIDE_MENU/catall'
+
+source $DYNAMIDE_MENU/ack-ignore-dirs
+alias ack='ack $ACK_IGNORE_DIRS'
+
+#export LSCOLORS='gxfxcxdxbxegedabagacad'
+export LSCOLORS='Exfxcxdxbxegfdabaggcgd'
+export GIT_EDITOR=vim
+export VISUAL=vim
+export EDITOR=vim
+
+export DYNAMIDE_MENU_DEFAULT_GITBRANCH=develop
+
+## bash-menu directory chooser and command menu:
+alias d='bash-menu-d'
+alias da='bash-menu-d -a'
+alias m='bash-menu-d -m'
+alias ma='bash-menu-d -ma'
+
+
+

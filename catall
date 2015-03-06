@@ -1,0 +1,41 @@
+case "$1" in
+-h|--h|--help)
+    shift
+    echo "Usage:  catall  [-n] {directory}"
+    echo "        Prints out n lines for all text files in a directory."
+    exit
+esac
+
+LIMIT=
+if [ "$1" == "-n" ]; then
+    shift
+    LIMIT="$1"
+    shift
+fi
+    
+DM_CATALL_BASENAME=""
+    
+if [ -d "$*" ]; then
+    DM_CATALL_BASENAME="$*"
+fi
+
+
+for thefile in `ls $*`
+do
+  if [ "$DM_CATALL_BASENAME" != "" ]; then
+      thefile="$DM_CATALL_BASENAME/$thefile"
+  fi
+  T=`file -b $thefile |grep text`
+  if [ "$T" != "" ] ; then
+    if [ -f "$thefile" ] ; then
+       if [ "$LIMIT" != "" ]; then
+            echo -e "\033[01;32;40m======================== $thefile ==========[$LIMIT lines]====================\033[0m "
+            head -n "$LIMIT" "$thefile"
+            echo "..."
+       else 
+           echo -e "\033[01;32;40m======================== $thefile ==============================\033[0m "
+           cat "$thefile"
+       fi
+    fi
+  fi
+done

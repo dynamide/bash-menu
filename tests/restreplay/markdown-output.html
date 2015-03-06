@@ -1,0 +1,555 @@
+<h1>
+<a id="user-content-bash-menu" class="anchor" href="#bash-menu" aria-hidden="true"><span class="octicon octicon-link"></span></a>bash-menu</h1>
+
+<p><a href="https://camo.githubusercontent.com/8f398fd7b605940cdb5831b2625c8b20ceae5584/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f70726f6d70742d322e706e67" target="_blank"><img src="https://camo.githubusercontent.com/8f398fd7b605940cdb5831b2625c8b20ceae5584/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f70726f6d70742d322e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/prompt-2.png" style="max-width:100%;"></a></p>
+
+<p><a href="#introduction">Introduction</a>
+<a href="#getting-the-source">Getting the source</a>
+<a href="#optional-installation-locations">Optional installation locations</a>
+<a href="#help-in-bash-menu">Help in bash-menu</a>
+<a href="#using-bash-menu">Using bash-menu</a>
+<a href="#sub-commands">Sub-commands</a>
+<a href="#editing">Editing</a>
+<a href="#using-the-title-command">Using the <em>title</em> command</a>
+<a href="#examples">Examples</a></p>
+
+<h2>
+<a id="user-content-introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p><strong>dynamide</strong> <a href="http://dynamide.org/bash-menu">bash-menu</a> is a menu system for bash which keeps lists of</p>
+
+<ul>
+<li>directories you wish to navigate to</li>
+<li>command lines you wish to execute</li>
+<li>spaces, which group directories and commands by project</li>
+</ul>
+
+<p>You use the menu to select from these lists.  Selecting a directory from a menu changes to that directory.  Selecting a command from a command menu executes that command.  You can use the menu or the command line to add to, remove from, and edit these lists.</p>
+
+<p>A fancy bash-prompt is also provided, which give you options to display on one line the title, user, host, pwd, and git-status.  See <a href="#using-the-title-command">Using the <em>title</em> command</a>.</p>
+
+<p>After you install bash-menu and log in, you'll have a custom prompt, and some new commands:</p>
+
+<ul>
+<li>  <strong>d</strong>        directory changer</li>
+<li>  <strong>da</strong>       add a directory to the list</li>
+<li>  <strong>m</strong>        menu of executable command-lines</li>
+<li>  <strong>ma</strong>        add a command to the list</li>
+<li>  <strong>catall</strong>   cat all text files in current directory with a colored line between each.</li>
+<li>  <strong>title</strong>    set the title, user, or hostname in a multi-line, colored PS1 bash prompt.</li>
+</ul>
+
+<h2>
+<a id="user-content-getting-the-source" class="anchor" href="#getting-the-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting the source</h2>
+
+<p>On <a href="https://github.com/dynamide/bash-menu">GitHub</a>, mash on the "Download ZIP" button, and extract to <code>~/.bash-menu</code>, or use wget or curl:</p>
+
+<pre><code> cd ~
+ curl -o master.zip  https://codeload.github.com/dynamide/bash-menu/zip/master
+ unzip master.zip
+ mv bash-menu-master/ ~/.bash-menu/
+</code></pre>
+
+<p>Or, checkout bash-menu from GitHub:</p>
+
+<pre><code> cd ~
+ git clone https://github.com/dynamide/bash-menu.git .bash-menu
+</code></pre>
+
+<p>or</p>
+
+<pre><code> cd ~
+ git clone git@github.com:dynamide/bash-menu.git .bash-menu
+</code></pre>
+
+<p>Then pull in the bash-menu from your bash profile, by sourcing in the bash menu, e.g.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left"><em>~/.bash_profile</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">source ~/.bash-menu/.bash_profile</td>
+</tr>
+</tbody>
+</table>
+
+<p>You can source with  <code>.</code> or <code>source</code>.</p>
+
+<p>All of the shell aliases created by bash-menu are defined in <code>~/.bash-menu/aliases</code> (or <code>$DYNAMIDE_MENU/aliases</code>).  Please review these aliases before launching.</p>
+
+<p>The next time you log in, you'll have a custom prompt, and some new commands. Try the main command <code>d</code> for example.</p>
+
+<p>Here is a sample bash prompt on two lines with current working directory, and git status:</p>
+
+<p><a href="https://camo.githubusercontent.com/03d87854f19bc081e1bcfe6c0504f0f8d997afe7/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f70726f6d70742d312e706e67" target="_blank"><img src="https://camo.githubusercontent.com/03d87854f19bc081e1bcfe6c0504f0f8d997afe7/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f70726f6d70742d312e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/prompt-1.png" style="max-width:100%;"></a></p>
+
+<h2>
+<a id="user-content-optional-installation-locations" class="anchor" href="#optional-installation-locations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optional Installation Locations</h2>
+
+<p>By default, the above check-out will leave you with a new, hidden directory in your home directory, that is, <code>~/.bash-menu</code>, or something like <code>/home/laramie/.bash-menu/</code>.  <strong>bash-menu</strong> knows about this because it sets DYNAMIDE_MENU in <code>~/.bash-menu/.bash_profile</code>.</p>
+
+<p>If you checked out to some directory other than <code>~/.bash-menu</code>, for example <code>~/.my-menu/</code> then you need to do two things to connect <strong>bash-menu</strong> to your shell.</p>
+
+<p>1) Edit this file, on the line where it sets DYNAMIDE_MENU (by default it is <code>DYNAMIDE_MENU=~/.bash-menu</code>), so that <strong>bash-menu</strong> will know where its home directory is.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left"><em>~/.my-menu/.bash_profile</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">DYNAMIDE_MENU=~/.my-menu</td>
+</tr>
+<tr>
+<td align="left">...</td>
+</tr>
+</tbody>
+</table>
+
+<p>2) Then, in your ~/.bash_profile source in the <strong>bash-menu</strong> control file we just edited:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left"><em>~/.bash_profile</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">source ~/.my-menu/.bash_profile</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-help-in-bash-menu" class="anchor" href="#help-in-bash-menu" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help in bash-menu</h2>
+
+<p>To see help, run with <code>-h</code> or <code>h</code> which will dump out usage.</p>
+
+<p><code>d -h</code></p>
+
+<p>To see help on options:</p>
+
+<p><code>d h options</code></p>
+
+<p>To see all the options and their alternate spellings, see:</p>
+
+<p><code>d h aliases</code></p>
+
+<p>To see the current configuration, see:</p>
+
+<p><code>d h info</code></p>
+
+<h2>
+<a id="user-content-using-bash-menu" class="anchor" href="#using-bash-menu" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using bash-menu</h2>
+
+<p>To get started, just type <code>d</code> at your new prompt.  From there you can choose a listed item by typing it's number.</p>
+
+<p>Here is the dynamide bash-menu being used to change to directory 6 on the menu:</p>
+
+<p><a href="https://camo.githubusercontent.com/4120c95d9fef08e64cb5b05ad5e76370a9fe23d8/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d656e752d312e706e67" target="_blank"><img src="https://camo.githubusercontent.com/4120c95d9fef08e64cb5b05ad5e76370a9fe23d8/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d656e752d312e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/menu-1.png" style="max-width:100%;"></a></p>
+
+<p>Note that it shows you the directory you chose, "/Users/vcrocla/src/dynamide/build/resource_root", and then a quick "ls" of that directory, then it changes to that directory.  You can tell because the fancy bash prompt has changed and now shows the current working directory as /Users/vcrocla/src/dynamide/build/resource_root, and the git status in that directory is (master) which means we are on git branch "master" with no pending pulls or pushes.</p>
+
+<p>From a menus such as the directory menu, you can type another menu option.  You can type <code>?</code> to see the mini-help of sub-commands at this menu.</p>
+
+<p><a href="https://camo.githubusercontent.com/1535972aef7e5d5d77087260278ba54aa9b33f9c/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6d696e6948656c702e706e67" target="_blank"><img src="https://camo.githubusercontent.com/1535972aef7e5d5d77087260278ba54aa9b33f9c/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6d696e6948656c702e706e67" data-canonical-src="http://dynamide.ORG/bash-menu/img/miniHelp.png" style="max-width:100%;"></a></p>
+
+<h2>
+<a id="user-content-sub-commands" class="anchor" href="#sub-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sub-commands</h2>
+
+<p>You can choose options on the command line, and skip the menus.  You can also choose some options after you have launched bash-menu and are sitting in a menu, where you are prompted for a choice.  If you type a number from the list of choices, you will get that choice.  But there are also sub-commands at these menus.  These mirror options available on the command line.  So you could, for example, launch right into your command menu like this:</p>
+
+<p><code>d -m</code></p>
+
+<p>Or, you could launch the directory menu, then change to the command menu with this sequence:</p>
+
+<pre><code>d
+    m
+</code></pre>
+
+<p>This represents typing <code>d</code> at your bash prompt, then typing <code>m</code> at the <strong>choose dir&gt;</strong> prompt.</p>
+
+<p>The <code>edit</code> sub-command is context-sensitive, and will launch your EDITOR or VISUAL editor to let you edit the correct menu.</p>
+
+<p>Here is an actual example:</p>
+
+<p><a href="https://camo.githubusercontent.com/8881a8a94ccf11bbb3f16dcc20e5d8e11a5e8638/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f7375622d636f6d6d616e64732e706e67" target="_blank"><img width="474" src="https://camo.githubusercontent.com/8881a8a94ccf11bbb3f16dcc20e5d8e11a5e8638/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f7375622d636f6d6d616e64732e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/sub-commands.png" style="max-width:100%;"></a></p>
+
+<p>The sub-commands take an option form: <code>-h</code>, a single-letter form: <code>h</code>, and a word form:  <code>help</code>.</p>
+
+<p>Here are all the sub-command options and their equivalents (-c and -s are completely equivalent):</p>
+
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>cmd</th>
+<th>cmd</th>
+<th>context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>a</td>
+<td>add</td>
+<td>directory, command</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>c</td>
+<td>connect</td>
+<td>directory, command</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>d</td>
+<td>list</td>
+<td>command, space</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>e</td>
+<td>edit</td>
+<td>*</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>h</td>
+<td>help</td>
+<td>*</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>i</td>
+<td>info</td>
+<td>*</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>l</td>
+<td>list</td>
+<td>command, space</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>m</td>
+<td>menu</td>
+<td>directory, space</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>s</td>
+<td>space</td>
+<td>directory, command</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>x</td>
+<td>delete</td>
+<td>directory, command</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>o</td>
+<td>options</td>
+<td>help</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>a</td>
+<td>aliases</td>
+<td>help</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>i</td>
+<td>info</td>
+<td>help</td>
+</tr>
+</tbody>
+</table>
+
+<p>Options or <em>cmd</em> may be used on the command line.</p>
+
+<p>Options or <em>cmd</em> may be used as sub-commands.</p>
+
+<p>Help takes subcommands <code>options</code>, <code>aliases</code>, and <code>info</code>, or their alternate names listed above.  For example:</p>
+
+<pre><code>d h info
+</code></pre>
+
+<p>On the command line, these options could look like these examples:</p>
+
+<pre><code>d a          # Add to your directory list
+
+d e          # Edit your directory list
+
+d m          # Show your command menu
+d -m
+
+d m e        # Edit your command menu
+d m -e
+d m edit
+
+d s e        # Edit your spaces menu
+d s -e
+d -s edit
+d -s -e
+d s edit
+</code></pre>
+
+<p>And so on.</p>
+
+<h2>
+<a id="user-content-using-the-title-command" class="anchor" href="#using-the-title-command" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using the <em>title</em> command</h2>
+
+<p>bash-menu comes with a custom PS1 bash prompt.  This prompt can show you:</p>
+
+<ul>
+<li>title</li>
+<li>user</li>
+<li>host</li>
+<li>pwd</li>
+<li>git-status</li>
+</ul>
+
+<p>To see all the options, type</p>
+
+<p><code>title -h</code></p>
+
+<p>Here is a sample of what setting various options does to your prompt:</p>
+
+<p><a href="https://camo.githubusercontent.com/870ea6e7c09b7a442f8436deb9298b5e2f35fb08/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f7469746c652d6578616d706c65732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/870ea6e7c09b7a442f8436deb9298b5e2f35fb08/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f7469746c652d6578616d706c65732e706e67" data-canonical-src="http://dynamide.ORG/bash-menu/img/title-examples.png" style="max-width:100%;"></a></p>
+
+<p>In these examples, my user name is "vcrocla", my host is "SFCAML-G2XFD56", which I override with the fake hostname "myhost".</p>
+
+<p>The title (appears at left of the first line) is any placeholder that reminds you of what this shell was for.  If you use -w, or -window, the title is also sent to the shell window's title bar.</p>
+
+<p>My directory "~/src/tagonomy" is a git repository, and its git status in that directory is (master) which means we are on git branch "master" with no pending pulls or pushes.  My directory "~/src/dynamide" is also a git repository, and also is on branch "master".</p>
+
+<p>You'll also see the numbers of commits ahead/behind if you are not up-to-date. (Thanks to the authors who wrote <code>git-branch-status</code>, listed in our <a href="https://github.com/dynamide/bash-menu/blob/master/NOTICE">NOTICE</a> file.)</p>
+
+<p>Here is what it looks like when you are ahead:</p>
+
+<p><a href="https://camo.githubusercontent.com/e5c5a8fa5cc1e8a65f6b1e820fe773575cdf2161/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642e706e67" target="_blank"><img src="https://camo.githubusercontent.com/e5c5a8fa5cc1e8a65f6b1e820fe773575cdf2161/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642e706e67" data-canonical-src="http://dynamide.ORG/bash-menu/img/git-ahead.png" style="max-width:100%;"></a></p>
+
+<p>If you type <code>git status</code> you'll see why:</p>
+
+<p><a href="https://camo.githubusercontent.com/c7a7566d707acf89ce62a9e8da8bebdd4bfc0034/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642d7374617475732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/c7a7566d707acf89ce62a9e8da8bebdd4bfc0034/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642d7374617475732e706e67" data-canonical-src="http://dynamide.ORG/bash-menu/img/git-ahead-status.png" style="max-width:100%;"></a></p>
+
+<p>Here is what it looks like when you are ahead and behind:</p>
+
+<p><a href="https://camo.githubusercontent.com/f2b02206ba53416a5e2e99f0ce27dfbcb0a75180/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642d626568696e642e706e67" target="_blank"><img src="https://camo.githubusercontent.com/f2b02206ba53416a5e2e99f0ce27dfbcb0a75180/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642d626568696e642e706e67" data-canonical-src="http://dynamide.ORG/bash-menu/img/git-ahead-behind.png" style="max-width:100%;"></a></p>
+
+<p>If you type <code>git status</code>  (I have it aliased to <code>st</code>) you'll see why:</p>
+
+<p><a href="https://camo.githubusercontent.com/1d5ecd184fa00389909607e2c795452665c9571b/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642d626568696e642d7374617475732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/1d5ecd184fa00389909607e2c795452665c9571b/687474703a2f2f64796e616d6964652e4f52472f626173682d6d656e752f696d672f6769742d61686561642d626568696e642d7374617475732e706e67" data-canonical-src="http://dynamide.ORG/bash-menu/img/git-ahead-behind-status.png" style="max-width:100%;"></a></p>
+
+<p>To customize your prompt, call <code>title</code> in your ~/.bash_profile <em>after</em> you source in ~/.bash-menu/.bash_profile:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left"><em>~/.bash_profile</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">source ~/.bash-menu/.bash_profile</td>
+</tr>
+<tr>
+<td align="left">source ~/.laramie/.bash_profile</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left"><em>~/.laramie/.bash_profile</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">DYNAMIDE_SPACES_LIST=~/.laramie/spaces.laramie.list</td>
+</tr>
+<tr>
+<td align="left">title -user -nohost -title Lappy -window</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-editing" class="anchor" href="#editing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Editing</h2>
+
+<p>You can edit your menus in two ways:</p>
+
+<ul>
+<li>1. using the command-line args or sub-commands in menus, and</li>
+<li>2. using your console editor such as <code>vi</code> or <code>emacs</code>.</li>
+</ul>
+
+<p>For case (2), bash-menu will launch your EDITOR or VISUAL editor on the appropriate file.  Just edit, then save normally.  Files contain non-blank lines or separators.  Separators are three hyphens alone on one line, like this:</p>
+
+<pre><code>/some/directory/on/dirlist
+---
+/other/dirs
+/other/dirs/bin
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left"><em>Sub-commands:</em></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">d x</td>
+<td align="left">launches the delete menu for directory lists</td>
+</tr>
+<tr>
+<td align="left">d x 3</td>
+<td align="left">deletes directory list item 3</td>
+</tr>
+<tr>
+<td align="left">d mx</td>
+<td align="left">launches the delete menu for commands</td>
+</tr>
+<tr>
+<td align="left">d mx 3</td>
+<td align="left">deletes command menu item 3</td>
+</tr>
+<tr>
+<td align="left">d m x</td>
+<td align="left">launches the delete menu for commands, using submenu</td>
+</tr>
+<tr>
+<td align="left">d ma</td>
+<td align="left">add to the command menu, using command-line</td>
+</tr>
+<tr>
+<td align="left">d m a</td>
+<td align="left">add to the command menu, using submenu</td>
+</tr>
+<tr>
+<td align="left">d e</td>
+<td align="left">launch EDITOR for directory lists</td>
+</tr>
+<tr>
+<td align="left">d m e</td>
+<td align="left">launch EDITOR for the command menu</td>
+</tr>
+<tr>
+<td align="left">d s</td>
+<td align="left">launch the space chooser</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p><strong>Show your directory menu</strong></p>
+
+<pre><code>d
+</code></pre>
+
+<p><strong>Show your command menu</strong></p>
+
+<pre><code>m
+</code></pre>
+
+<p><strong>put shell history item 467 (expanded) into your menu</strong></p>
+
+<pre><code>d -ma !467
+</code></pre>
+
+<p><strong>put a command into your menu using the alias <code>ma</code> (installed in ~/.bash-menu/aliases)</strong></p>
+
+<pre><code>ma find . -iname '*my-file.*'
+</code></pre>
+
+<p><strong>chose menu item 2 and execute it</strong></p>
+
+<pre><code>d -m 2
+</code></pre>
+
+<p><strong>chose menu item 2 and execute it</strong></p>
+
+<pre><code>m 2
+</code></pre>
+
+<p><strong>put a separator into your menu using the special string ---</strong></p>
+
+<pre><code>ma ---
+</code></pre>
+
+<p><strong>Add ~/zanzibar (expanded) to your directory list</strong></p>
+
+<pre><code>d -a ~/zanzibar
+</code></pre>
+
+<p><strong>Add ~/zanzibar (NOT expanded) to your directory list</strong></p>
+
+<pre><code>d -a '~/zanzibar'
+</code></pre>
+
+<p><strong>Add $JAVA_HOME (NOT expanded) to your directory list</strong></p>
+
+<pre><code>d -a '$JAVA_HOME'
+</code></pre>
+
+<p><strong>Add $JAVA_HOME (expanded) to your directory list</strong></p>
+
+<pre><code>d -a $JAVA_HOME
+</code></pre>
+
+<p><strong>Choose directory 2 from your directory list</strong></p>
+
+<pre><code>d 2
+</code></pre>
+
+<p><strong>Add . (expanded using `pwd`) to your directory list</strong></p>
+
+<pre><code>d -a .
+</code></pre>
+
+<p><strong>Add <code>foo</code> in current directory (expanded using <code>pwd</code>/foo) to your directory list</strong></p>
+
+<pre><code>d -a foo
+</code></pre>
+
+<p><strong>Add /var/log (full path, unexpanded) to your directory list</strong></p>
+
+<pre><code>d -a /var/log
+</code></pre>
+
+<p><strong>Add a frequently used Maven (mvn) command to the menu and use the menu to run it.  The command is
+<code>mvn -DskipTests -o install</code>  and we are adding the whole thing using the ma command.</strong></p>
+
+<p><a href="https://camo.githubusercontent.com/7e033e1bf2f607194ae87052f202067477bd5015/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d656e752d6164642e706e67" target="_blank"><img width="424" src="https://camo.githubusercontent.com/7e033e1bf2f607194ae87052f202067477bd5015/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d656e752d6164642e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/menu-add.png" style="max-width:100%;"></a></p>
+
+<p><code>mvn</code> is a popular build tool.  You can see where it begins to run with the line "[INFO] Scanning for projects...</p>
+
+<p><strong>Re-run that command without looking at the menu, now that you know the number</strong></p>
+
+<p><a href="https://camo.githubusercontent.com/66ea381694ad3a95a2f557e474f4956114a0e35f/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d656e752d322e706e67" target="_blank"><img width="303" src="https://camo.githubusercontent.com/66ea381694ad3a95a2f557e474f4956114a0e35f/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d656e752d322e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/menu-2.png" style="max-width:100%;"></a></p>
+
+<p><em>You could also run the command in your shell, then use the <code>ma</code> command to capture the command to your command list in your current space.  The ma command will take a command-line as its arguments.  With no arguments, the ma command grabs the last item on your history.  Note that you need to read the output of the ma command to see the index of the new command, in this case, the number <code>4</code>.</em></p>
+
+<pre><code>mvn -DskipTests -o install
+ma
+m 4
+</code></pre>
+
+<p><a href="https://camo.githubusercontent.com/e824d700f8894ef8382bea29fadfa6014e7dc492/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d612e706e67" target="_blank"><img width="450" src="https://camo.githubusercontent.com/e824d700f8894ef8382bea29fadfa6014e7dc492/687474703a2f2f64796e616d6964652e6f72672f626173682d6d656e752f696d672f6d612e706e67" data-canonical-src="http://dynamide.org/bash-menu/img/ma.png" style="max-width:100%;"></a></p>

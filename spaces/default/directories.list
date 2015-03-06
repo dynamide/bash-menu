@@ -1,0 +1,7 @@
+/tmp
+/var/log
+~/bin
+---
+$HOME/.m2
+$DYNAMIDE_HOME/bin
+$DYNAMIDE_MENU

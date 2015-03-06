@@ -1,0 +1,5 @@
+#long options: restreplay -testdir . -control githubapi/markdown.xml -testGroup main -test markdown
+
+pushd ~/.bash-menu/tests/restreplay
+
+restreplay -d . -c githubapi/markdown.xml -g main -t markdown

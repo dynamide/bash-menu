@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<restReplay>
+    <auths>
+        <auth ID="laramiegit">bGFyYW1pZTpPZmZUb0dpdER5bmFtaWRl</auth>
+    </auths>
+    <testGroup ID="main" autoDeletePOSTS="false">
+        <test ID="markdown" auth="laramiegit">
+            <method>POST</method>
+            <headers>
+                <header name="content-type">text/x-markdown</header>
+                <header name="Accept">application/vnd.github.v3+json</header>
+            </headers>
+            <uri>https://api.github.com/markdown/raw</uri>
+            <filename>githubapi/q/README.md</filename>
+            <response>
+                <validator lang="javascript"><![CDATA[
+                   var f = kit.getFileTools().saveFile(".", "markdown-output.html", result.result, false);
+                   kit.out.println("saved result to =========="+f+"=============");
+                ]]></validator>
+            </response>
+        </test>
+    </testGroup>
+</restReplay>

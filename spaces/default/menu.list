@@ -1,0 +1,7 @@
+hostname
+pwd
+date
+ls -la
+---
+mvn -DskipTests -o install
+ls $DYNAMIDE_HOME
