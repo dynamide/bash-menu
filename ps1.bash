@@ -1,7 +1,7 @@
 ##export PS1="\[\e]0;\w\a\]\n\[\e[0;92m\e[40m\]\u@\h \[\e[1;95m\]\w\[\e[1;33m\]\$(parse_git_branch)\[\e[0m\]\n\$ "
 function setTitle() {
     case "$1" in 
-    -h|--help)
+    --help)
         echo
         echo "  title  [-user [{username}]|-nouser] [-nohost|-host|-host {myhostname}] [-title {mytitle}] [-window]"
         echo "  title  -clear"
