@@ -3,5 +3,8 @@ Generate doco:
     ./make-options-doco
   which generates
     ./options-doco
+    
+Update the TOC on dynamide.org:
+    
 
 

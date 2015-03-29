@@ -5,7 +5,7 @@ source  $DYNAMIDE_MENU/functions.bash
 source  $DYNAMIDE_MENU/aliases
 source  $DYNAMIDE_MENU/d.bash
 source  $DYNAMIDE_MENU/ps1.bash
-
+title -u -host
 
 #===========================================================
 #  You can customize bash-menu by overriding these here,
@@ -25,5 +25,3 @@ DM_MENU_AFTER=
 
 #Show the current space as the first item in the menu ( =t to show, =f to override)
 DM_MENUOPTS_SHOWSPACE=f
-
-
